@@ -1,0 +1,3 @@
+[submodule "lib/react-native-mqtt"]
+	path = lib/react-native-mqtt
+	url = https://github.com/getlittletech/react-native-mqtt
