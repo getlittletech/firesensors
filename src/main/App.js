@@ -5,7 +5,7 @@ import { Provider } from 'react-redux'
 
 import mainReducer from './reducer'
 
-import FireSensorsList from '../firesensors/SensorsList'
+import FireSensorsListContainer from '../firesensors/SensorsListContainer'
 
 import MqttClient from '../utils/mqttclient/MqttClient'
 
@@ -17,7 +17,7 @@ export default class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <FireSensorsList />
+        <FireSensorsListContainer />
       </Provider>
     );
   }

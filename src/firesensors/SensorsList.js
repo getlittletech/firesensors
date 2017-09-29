@@ -7,15 +7,23 @@ import {
 } from 'react-native';
 
 export default class SensorsList extends Component {
+  constructor(props) {
+    super(props)
+  }
+
   render() {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
-          List of smoke sensors
+          List of smoke sensors:
         </Text>
-        <Text style={styles.instructions}>
-          sensor 1, sensor 2, etc.
-        </Text>
+        {!!this.props.firesensors && !!this.props.firesensors.sensors && this.props.firesensors.sensors.map(sensor => {
+          return (
+            <Text style={styles.instructions} key={sensor.deviceId}>
+              {sensor.deviceName}
+            </Text>
+          )
+        })}
       </View>
     );
   }
