@@ -7,22 +7,19 @@ import {
 
 import SensorItem from './SensorItem'
 
+import { List } from 'react-native-elements'
+
 export default class SensorsList extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <List containerStyle={{marginBottom: 20}}>
         {!!this.props.firesensors && !!this.props.firesensors.sensors && this.props.firesensors.sensors.map(sensor => {
           return (
             <SensorItem sensor={sensor} key={sensor.deviceId} />
           )
         })}
-      </View>
+      </List>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-  }
-});

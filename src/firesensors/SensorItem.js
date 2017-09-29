@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 
+import { ListItem } from 'react-native-elements'
+
 import {
   StyleSheet,
   Text,
@@ -10,19 +12,10 @@ export default class SensorsItem extends Component {
 
   render() {
     return (
-      <View style={styles.cell}>
-        <Text style={styles.text}>
-          {this.props.sensor.deviceName}
-        </Text>
-      </View>
+      <ListItem
+        leftIcon={{name: "settings-remote"}}
+        title={this.props.sensor.deviceName}
+      />
     );
   }
 }
-
-const styles = StyleSheet.create({
-  cell: {
-  },
-  text: {
-
-  }
-});
