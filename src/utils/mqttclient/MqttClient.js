@@ -1,10 +1,11 @@
 import mqtt from '../../../lib/react-native-mqtt'
+import { fireSensorsReceived } from '../../firesensors/actions'
 
 let subscribeTopic = "user/device/00000000-0000-0000-0000-000000000007/#"
 
 class MqttClient {
 
-  setup() {
+  setup(dispatch) {
     mqtt.createClient({
       port: 1883,
       auth: false,
@@ -14,6 +15,9 @@ class MqttClient {
       host: '127.0.0.1',
       clientId: 'test'
     }).then((client) => {
+
+      this.client = client
+      this.dispatch = dispatch
 
       client.on('closed', () => {
         console.log('mqtt.event.closed')
@@ -29,7 +33,10 @@ class MqttClient {
       client.on('message', (msg) => {
         console.log('mqtt.event.message', msg)
 
-        // TODO: dispatch an action
+        const jsonMsg = JSON.parse(msg.data)
+        const sensors = jsonMsg.sensors
+
+        dispatch(fireSensorsReceived(sensors))
       });
 
       client.on('connect', () => {
@@ -40,7 +47,6 @@ class MqttClient {
 
       client.connect();
 
-      this.client = client
     }).catch(function(err){
       console.log(err)
     });
