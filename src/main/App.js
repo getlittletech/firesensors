@@ -15,16 +15,14 @@ const store = createStore(
   mainReducer
 )
 
-import {
-  View, Text
-} from 'react-native';
+import { View, Text, StyleSheet } from 'react-native'
 
 export default class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <View>
-          <Header text="Our sensors:"/>
+        <View style={styles.container}>
+          <Header text="SENSORS"/>
           <FireSensorsListContainer />
         </View>
       </Provider>
@@ -33,3 +31,11 @@ export default class App extends Component {
 }
 
 MqttClient.setup(store.dispatch)
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'flex-start'
+  }
+})

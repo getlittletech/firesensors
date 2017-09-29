@@ -3,8 +3,9 @@ import React, { Component } from 'react'
 import {
   StyleSheet,
   View,
-  FlatList,
-  Text
+  Text,
+  UIManager,
+  LayoutAnimation
 } from 'react-native';
 
 import SensorItem from './SensorItem'
@@ -12,6 +13,11 @@ import SensorItem from './SensorItem'
 import { List } from 'react-native-elements'
 
 export default class SensorsList extends Component {
+
+  componentWillUpdate() {
+    UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
+    LayoutAnimation.spring();
+  }
 
   render() {
     // get alarmed and calm sensors (also add key property)
@@ -23,10 +29,11 @@ export default class SensorsList extends Component {
 
     if (alarmedFirst.length > 0) {
       return (
-        <FlatList
-          data={alarmedFirst}
-          renderItem={({item}) => <SensorItem sensor={item} />}
-        />
+        <List>
+          {
+            alarmedFirst.map((sensor) => <SensorItem sensor={sensor} key={sensor.deviceId} />)
+          }
+        </List>
       )
     } else {
       return <Text>No sensors detected</Text>
@@ -35,10 +42,7 @@ export default class SensorsList extends Component {
 
   getAlarmed(firesensors) {
     if (!!firesensors && !!firesensors.sensors) {
-      return firesensors.sensors.filter((sensor) => sensor.alarmActive === true && sensor.silenced !== true).map((sensor) => {
-        sensor.key = sensor.deviceId
-        return sensor
-      })
+      return firesensors.sensors.filter((sensor) => sensor.alarmActive === true && sensor.silenced !== true)
     } else {
       return []
     }
@@ -46,10 +50,7 @@ export default class SensorsList extends Component {
 
   getCalm(firesensors) {
     if (!!firesensors && !!firesensors.sensors) {
-      return firesensors.sensors.filter((sensor) => sensor.alarmActive === false || sensor.silenced === true).map((sensor) => {
-        sensor.key = sensor.deviceId
-        return sensor
-      })
+      return firesensors.sensors.filter((sensor) => sensor.alarmActive === false || sensor.silenced === true)
     } else {
       return []
     }
