@@ -1,18 +1,29 @@
 import mqtt from '../../../lib/react-native-mqtt'
 import { fireSensorsReceived } from '../../firesensors/actions'
+import { Platform } from 'react-native';
 
 let subscribeTopic = "user/device/00000000-0000-0000-0000-000000000007/#"
 
 class MqttClient {
 
   setup(dispatch) {
+    // For device: specify the host of a computer. Or a real Mosquitto server.
+
+    // For emulator
+    let host = '127.0.0.1'
+
+    if (Platform.OS === 'android') {
+      // localhost for android
+      host = '10.0.2.2'
+    }
+
     mqtt.createClient({
       port: 1883,
       auth: false,
       keepalive: 45,
       tls: false,
       selfSignedCertificates: false,
-      host: '127.0.0.1',
+      host,
       clientId: 'test'
     }).then((client) => {
 
