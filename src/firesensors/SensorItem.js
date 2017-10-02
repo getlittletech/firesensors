@@ -8,6 +8,8 @@ import {
   View
 } from 'react-native'
 
+import { PropTypes } from 'prop-types';
+
 import MqttClient from '../utils/mqttclient/MqttClient'
 
 export default class SensorsItem extends Component {
@@ -38,4 +40,8 @@ export default class SensorsItem extends Component {
   silence() {
     MqttClient.publishUnderControl()
   }
+}
+
+SensorsItem.propTypes = {
+  sensor: PropTypes.object.isRequired
 }

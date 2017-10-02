@@ -6,6 +6,8 @@ import {
   View
 } from 'react-native';
 
+import { PropTypes } from 'prop-types';
+
 const Header = ({text}) => (
     <View style={styles.header}>
       <Text style={styles.text}>
@@ -28,6 +30,10 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   }
 })
+
+Header.propTypes = {
+  text: PropTypes.string.isRequired
+}
 
 
 export default Header

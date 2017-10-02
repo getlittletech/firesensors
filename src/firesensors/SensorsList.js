@@ -12,6 +12,8 @@ import SensorItem from './SensorItem'
 
 import { List } from 'react-native-elements'
 
+import { PropTypes } from 'prop-types';
+
 export default class SensorsList extends Component {
 
   componentWillUpdate() {
@@ -55,4 +57,8 @@ export default class SensorsList extends Component {
       return []
     }
   }
+}
+
+SensorsList.propTypes = {
+  firesensors: PropTypes.object
 }
